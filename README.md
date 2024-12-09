@@ -115,6 +115,8 @@ bash script/data_gen/data_pipeline_main.sh
 
 ## Evaluation
 
+During evaluation, object-halbench/mmhal-bench/llava-bench need to be assessed using GPT-3.5/4.
+
 ### Object-HalBench
 
 1. Download data from [COCO](http://images.cocodataset.org/annotations/annotations_trainval2014.zip)
