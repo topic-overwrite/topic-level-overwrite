@@ -8,11 +8,11 @@
 <h4 align="center"> 
 
   [Lehan He](https://scholar.google.com/citations?hl=en&user=vWYG3zIAAAAJ),
-  [Zeren Chen](),
-  [Zhelun Shi](),
+  [Zeren Chen](https://scholar.google.com.hk/citations?hl=en&user=fdDOA-0AAAAJ),
+  [Zhelun Shi](https://scholar.google.com/citations?user=EDLcoVkAAAAJ&hl=en),
   [Tianyu Yu](https://github.com/yiranyyu),
 
-  [Jing Shao](),
+  [Jing Shao](https://amandajshao.github.io/),
   [Lu Sheng](https://lucassheng.github.io/)
 
 </h4>
