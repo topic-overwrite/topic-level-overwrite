@@ -58,7 +58,7 @@ class TPRChat:
 
 
 if __name__ == '__main__':
-    chat_model = TPOChat('checkpoint/tpo-llava15_7b_main/checkpoints')
+    chat_model = TPRChat('checkpoint/tpr-llava15_7b_main/checkpoints')
     while True:
         print("image_paths:")
         image_path=input() # examples/example.jpeg
