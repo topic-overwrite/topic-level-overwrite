@@ -149,13 +149,3 @@ python script/eval/eval_llavabench.sh [ckpt_path] [base_path if use lora ckpt el
 
 We default use **gpt-4-1106-preview**, Please replace {YOUR_OPENAI_API_KEY} with a valid OpenAI api-key or directly modify the [13th](https://github.com/topic-overwrite/topic-level-overwrite/blob/main/eval/gpt4_grpc.py#L13) line in eval/gpt4_grpc.py.
 
-
-## Dialogue Examples
-
-<div align="center">
-  <img src="examples/test1.png" width="70%">
-</div>
-
-<div align="center">
-  <img src="examples/test2.png" width="70%">
-</div>
