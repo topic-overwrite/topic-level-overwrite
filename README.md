@@ -5,7 +5,7 @@
 1. Install some important packages.
 
 ```bash
-conda create -n tpo python=3.10 -y
+conda create -n tpr python=3.10 -y
 conda activate tpr
 pip install -r requirements.txt
 ```
