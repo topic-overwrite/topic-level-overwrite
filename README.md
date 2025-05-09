@@ -17,7 +17,7 @@ pip install -r requirements.txt
 
 ## Inference
 
-We provide a simple example to show how to use TPO.
+We provide a simple example to show how to use TPR.
 
 
 ```python
