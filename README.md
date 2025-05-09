@@ -1,48 +1,3 @@
-
-<div align="center" style="font-size: 15pt">
-
-# A Topic-level Self-Correctional Approach to Mitigate Hallucinations in MLLMs
-
-</div>
-
-<h4 align="center"> 
-
-  [Lehan He](https://scholar.google.com/citations?hl=en&user=vWYG3zIAAAAJ),
-  [Zeren Chen](https://scholar.google.com.hk/citations?hl=en&user=fdDOA-0AAAAJ),
-  [Zhelun Shi](https://scholar.google.com/citations?user=EDLcoVkAAAAJ&hl=en),
-  [Tianyu Yu](https://github.com/yiranyyu),
-
-  [Jing Shao](https://amandajshao.github.io/),
-  [Lu Sheng](https://lucassheng.github.io/)
-
-</h4>
-
-<div align="center" style="font-size: 15pt">
-
-<a href='https://arxiv.org/abs/2411.17265'><img src='https://img.shields.io/badge/Paper-PDF-purple'></a>
-<a href='https://huggingface.co/datasets/helehan/topic-overwrite'><img src='https://img.shields.io/badge/Dataset-HF-Green'></a>
-<a href='https://huggingface.co/helehan/topic-overwrite-llava-7b-full'><img src='https://img.shields.io/badge/Model-7B-orange'></a>
-<a href='https://huggingface.co/helehan/topic-overwrite-llava-7b-lora'><img src='https://img.shields.io/badge/Model-Lora-orange'></a>
-
-</div>
-
-## 🎉 News <!-- omit in toc -->
-
-- [2024.12.08] We open-source the code, weights ([7B](https://huggingface.co/helehan/topic-overwrite-llava-7b-full), [Lora](https://huggingface.co/helehan/topic-overwrite-llava-7b-lora)) and [data](https://huggingface.co/datasets/helehan/topic-overwrite) of TPO!
-- [2024.11.26] Our paper is accesible at [arXiv](https://arxiv.org/abs/2411.17265) now!
-
-
-## 📜 Overview <!-- omit in toc -->
-
-We propose a topic-level self-correctional paradigm tailored for reducing hallucinations, Topic-level Preference Overwriting (TPO). We adopt a deconfounded algorithm that replaces all topics involved in a complex response, with the best or worst alternatives resampled multiple times from the reference model itself on the same topic.
-
-<table align="center">
-    <p align="center">
-      <img src="examples/intro1.png" width="95%" alt="intro1" />
-    </p>
-</table>
-
-
 ## Prepare <!-- omit in toc -->
 
 1. Install some important packages.
@@ -204,29 +159,3 @@ We default use **gpt-4-1106-preview**, Please replace {YOUR_OPENAI_API_KEY} with
 <div align="center">
   <img src="examples/test2.png" width="70%">
 </div>
-
-
-## Licenses <!-- omit in toc -->
-
-[![Code License](https://img.shields.io/badge/Code%20License-Apache_2.0-green.svg)](https://github.com/tatsu-lab/stanford_alpaca/blob/main/LICENSE)
-[![Data License](https://img.shields.io/badge/Data%20License-CC%20By%20NC%204.0-red.svg)](https://github.com/tatsu-lab/stanford_alpaca/blob/main/DATA_LICENSE)
-
-**Usage and License Notices**: The data, code, and checkpoint are intended and licensed for research use only. They are also restricted to uses that follow the license agreement of LLaMA, Vicuna, and ChatGPT. The dataset is CC BY NC 4.0 (allowing only non-commercial use) and models trained using the dataset should not be used outside of research purposes.
-
-
-## Acknowledgement <!-- omit in toc -->
-
-- [RLAIF-V](https://github.com/RLHF-V/RLAIF-V): The codebase we built upon.
-- [LLaVA](https://github.com/haotian-liu/LLaVA): The instruction model and labeler model of RLAIF-V-7B.
-
-
-## Citation
-
-```bibtex
-@article{he2024topic,
-  title={A Topic-level Self-Correctional Approach to Mitigate Hallucinations in MLLMs}, 
-  author={Lehan He and Zeren Chen and Zhelun Shi and Tianyu Yu and Jing Shao and Lu Sheng},
-  journal={arXiv preprint arXiv:2411.17265},
-  year={2024}
-}
-```
