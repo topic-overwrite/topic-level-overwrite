@@ -23,7 +23,7 @@ We provide a simple example to show how to use TPR.
 ```python
 from chat import TPOChat, img2base64
 
-chat_model = TPOChat('helehan/topic-overwrite-llava-7b-full')
+chat_model = TPRChat('helehan/topic-overwrite-llava-7b-full')
 image_path="Your_Image_Path.jpg"
 msgs = "Describe in detail the people in the picture."
 inputs = {"image": image_path, "question": msgs}
@@ -54,10 +54,10 @@ Run the following command to start training.
 
 ```bash
 # If you want to train lora
-bash script/train/llava15_train_lora.sh ./llava-v1.5-7b-checkpoint-path ./TPO-data-path
+bash script/train/llava15_train_lora.sh ./llava-v1.5-7b-checkpoint-path ./TPR-data-path
 
 # If you want to train full
-bash script/train/llava15_train_main.sh ./llava-v1.5-7b-checkpoint-path ./TPO-data-path
+bash script/train/llava15_train_main.sh ./llava-v1.5-7b-checkpoint-path ./TPR-data-path
 ```
 
 ## Data Generation 
