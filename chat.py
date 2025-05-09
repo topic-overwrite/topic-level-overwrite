@@ -17,7 +17,7 @@ DEFAULT_IM_START_TOKEN = "<im_start>"
 DEFAULT_IM_END_TOKEN = "<im_end>"
 
 
-class TPOChat:
+class TPRChat:
     def __init__(self, model_path) -> None:
         disable_torch_init()
         model_name='llava-v1.5-7b'
