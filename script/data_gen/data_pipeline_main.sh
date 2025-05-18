@@ -21,7 +21,7 @@ image_dir=${11:-"dataset/raw-image-dir"}
 
 # iterative hyperparameters
 start_pos="0"
-end_pos="100"
+end_pos="-1"
 dpo_pair_generate_method="max_all_claim"  # 1-3 iter: max_all_claim, 4 iter: default_v1, 5 iter: max_one_claim
 
 
