@@ -33,7 +33,7 @@ Follow RLAIF-V work, please download [Llama-3](meta-llama/Meta-Llama-3-8B-Instru
 
 ```bash
 # Filter raw data to our format
-bash script/data_gen/filter_raw_data.sh ./your_downloaded_input_data_folder
+bash script/data_gen/filter_raw_data.sh [your_downloaded_input_data_folder or openbmb/RLAIF-V-Dataset]
 
 # Run data generate script, you can adjust the hyperparameters for more detailed experiments
 # if you need the complete process, you need to iteratively run the data_generation and train processes 5 times, 

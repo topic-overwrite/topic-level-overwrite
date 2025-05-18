@@ -3,6 +3,7 @@ import base64
 import ast
 import io
 import PIL
+import os
 from datasets import load_dataset
 from tqdm import tqdm 
 import argparse
@@ -13,6 +14,9 @@ def get_all_data_format_jsonl(input_data, output_file):
     ds = load_dataset(input_data)
     print("load end.")
     filename = output_file
+    directory = os.path.dirname(filename)
+    if not os.path.exists(directory):
+        os.makedirs(directory, exist_ok=True)
     data_dict = {}
     error_data_num = 0
     correct_data_num = 0
@@ -51,7 +55,36 @@ def get_all_data_format_jsonl(input_data, output_file):
             f.write('\n')
         f.close()
     print("correct_data_num=", correct_data_num, "duplicate_data_num=", error_data_num)
-    
+
+
+def get_image_file_format_PIL(input_data, image_dir):
+    print("start")
+    ds = load_dataset(input_data)
+    print("load end.")
+    image_dir = image_dir
+    if not os.path.exists(image_dir):
+        os.makedirs(image_dir, exist_ok=True)
+    data_dict = {}
+    error_data_num, correct_data_num, jpg_num, png_num = 0,0,0,0
+    # import ipdb; ipdb.set_trace()
+    for index, example in tqdm(enumerate(ds["train"])):
+        if (example['image_path'], example["question"]) in data_dict.keys():
+            error_data_num += 1
+            continue
+        correct_data_num += 1
+        data_dict[(example['image_path'], example["question"])] = 1
+        image = example["image"]
+        if type(image) == PIL.PngImagePlugin.PngImageFile or image.mode == 'P' or image.mode == 'RGBA':
+            image.save(f'{image_dir}/{correct_data_num-1}'+'.png', format="PNG")
+            png_num += 1
+        else:
+            image.save(f'{image_dir}/{correct_data_num-1}'+'.jpg',format="JPEG")
+            jpg_num +=1
+    print("error_data_num=",error_data_num)
+    print("duplicate_data_num=",correct_data_num)
+    print("jpg_num=",jpg_num)
+    print("png_num=",png_num)
+
 
 if __name__ ==  '__main__':
     
@@ -66,3 +99,4 @@ if __name__ ==  '__main__':
     image_dir = str(args.output_image_file_dir)
 
     get_all_data_format_jsonl(input_data, output_file)
+    get_image_file_format_PIL(input_data, image_dir)
