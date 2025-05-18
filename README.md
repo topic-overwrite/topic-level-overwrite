@@ -28,7 +28,9 @@ We recommend downloading the following models:
 
 If you prefer to manually generate the dataset rather than using the existing datasets on Hugging Face. 
 
-Follow RLAIF-V work, please download [Llama-3](meta-llama/Meta-Llama-3-8B-Instruct), raw train dataset [RLAIF-V-Dataset](https://huggingface.co/datasets/openbmb/RLAIF-V-Dataset) and run the following program.
+Follow RLAIF-V work, please download [Llama-3](meta-llama/Meta-Llama-3-8B-Instruct), raw train dataset [RLAIF-V-Dataset](https://huggingface.co/datasets/openbmb/RLAIF-V-Dataset), which is a famous RLAIF hallucination dataset.
+
+run the following program.
 
 
 ```bash
