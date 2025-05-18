@@ -38,10 +38,7 @@ echo "start_pos "$start_pos" end_pos "$end_pos
 echo "only_wh_question "$only_wh_question
 
 
-srun \
-    -p AI4Good_S \
-    -J data-preprocess \
-    --kill-on-bad-exit \
+
 python utils/collect_all_claim_to_generate_yesno_question.py \
     --claim_path $claim_path \
     --wh_response_path $wh_response_path \

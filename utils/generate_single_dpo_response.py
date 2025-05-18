@@ -4,6 +4,7 @@ import argparse
 from tqdm import tqdm
 from copy import deepcopy
 from itertools import combinations
+import os
 import random
 
 DefaultMethodPairNum = 0
@@ -567,6 +568,9 @@ if __name__ == '__main__':
             continue
         for i in range(len(upper_half)):
             check_need_merge(upper_half[i], lower_half[i], item['question'], i, question_id, item, args.output_path, args.need_merge_path)
+
+    if NeedChangeResponseNum == 0:
+        os.remove(args.need_merge_path)
     
     print(f'\nused_wh_claim_num={used_wh_claim_num} used_raw_claim_num={used_raw_claim_num}')
     print(f'CorrectPairNum={CorrectPairNum}')

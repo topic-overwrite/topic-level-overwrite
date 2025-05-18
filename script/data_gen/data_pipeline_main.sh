@@ -2,35 +2,54 @@
 
 echo "----------Start data_pipeline----------"
 
-num_gpus=${1:-"8"}
+num_gpus=${1:-"4"}
 ref_model_path=${2:-"checkpoint/liuhaotian--llava-v1.5-7b"}
 supp_model_path=${3:-"checkpoint/Meta-Llama-3-8B-Instruct"}
 labeler_model_path=${4:-"checkpoint/liuhaotian--llava-v1.6-34b"}
 clip_path=${5:-"checkpoint/openai--clip-vit-large-patch14-336"}
 
-base_dir=${6:-"dataset/tpr_data/"}
-ques_dir=${7:-"dataset/raw-question-with-image"}
-ques_file=${8:-"question.jsonl"}
-image_dir=${9:-"dataset/raw-image-dir"}
+split_model_path=${6:-""}
+yesno_model_path=${7:-""}
+
+base_dir=${8:-"dataset/tpr_data/"}
+ques_dir=${9:-"dataset/raw-question-with-image"}
+ques_file=${10:-"question.jsonl"}
+image_dir=${11:-"dataset/raw-image-dir"}
+
+
+
 
 # iterative hyperparameters
 start_pos="0"
-end_pos="-1"
+end_pos="100"
 dpo_pair_generate_method="max_all_claim"  # 1-3 iter: max_all_claim, 4 iter: default_v1, 5 iter: max_one_claim
 
 
+
+
+if [[ ${#split_model_path} -le 2 ]]; then
+    split_model_path=$supp_model_path
+fi
+
+if [[ ${#yesno_model_path} -le 2 ]]; then
+    yesno_model_path=$supp_model_path
+fi
+
 generate_response_ckpt=$ref_model_path
-split_to_claim_ckpt=$supp_model_path
+split_to_claim_ckpt=$split_model_path
 classify_claim_ckpt=$supp_model_path
 generate_wh_question_ckpt=$supp_model_path
-generate_yesno_question_ckpt=$supp_model_path
+generate_yesno_question_ckpt=$yesno_model_path
 check_claim_reward_ckpt=$labeler_model_path # checkpoint/liuhaotian--llava-v1.6-34b  checkpoint/liuhaotian--llava-v1.5-7b
 clip_ckpt=$clip_path
 reorganize_response_ckpt=$generate_response_ckpt
 
 
-if [[ $dir != */ ]]; then
-  dir="$dir/"
+if [ ! -d "$base_dir" ]; then
+  mkdir "$base_dir"
+fi
+if [[ $base_dir != */ ]]; then
+  base_dir="$base_dir/"
 fi
 
 generated_response_dir=$base_dir"generated-response"

@@ -32,10 +32,7 @@ echo "use_image_classify: "$use_image_classify
 echo "start_pos: "$start_pos"  end_pos: "$end_pos
 
 
-srun \
-    -p AI4Good_S \
-    -J data-preprocess \
-    --kill-on-bad-exit \
+
 python utils/get_claim_pairs_for_classification.py \
     --data_path $wh_question_path \
     --output_path ${ans_dir}/classify_question.jsonl \

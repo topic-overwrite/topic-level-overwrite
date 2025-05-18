@@ -51,6 +51,7 @@ python utils/generate_single_dpo_response.py \
     --start_pos $start_pos \
     --end_pos $end_pos
 
+
 if [[ $dpo_pair_generate_method == *"default"* ]]; then
     if [ ! -f "${output_dir}/dpo_single_response_merged.json" ]; then
         touch "${output_dir}/dpo_single_response_merged.json"
@@ -58,15 +59,19 @@ if [[ $dpo_pair_generate_method == *"default"* ]]; then
         > "${output_dir}/dpo_single_response_merged.json"
     fi
 else
-    echo "[Generate Final Response]"
-    bash script/data_gen/generate_diverse_response.sh \
-        $num_gpus \
-        $ckpt \
-        $output_dir \
-        dpo_single_response_need_merge.jsonl \
-        $output_dir \
-        dpo_single_response_merged.json \
-        1
+    if [ ! -f "${output_dir}/dpo_single_response_need_merge.json" ]; then
+        touch "${output_dir}/dpo_single_response_merged.json"
+    else
+        echo "[Generate Final Response]"
+        bash script/data_gen/generate_diverse_response.sh \
+            $num_gpus \
+            $ckpt \
+            $output_dir \
+            dpo_single_response_need_merge.jsonl \
+            $output_dir \
+            dpo_single_response_merged.json \
+            1
+    fi
 fi
 
 python utils/merge_dpo_data_pairs.py \

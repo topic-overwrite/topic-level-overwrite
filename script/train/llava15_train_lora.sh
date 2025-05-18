@@ -34,7 +34,7 @@ deepspeed muffin/train/train_llava15.py \
     --num_train_epochs 10 \
     --per_device_train_batch_size 1 \
     --per_device_eval_batch_size 4 \
-    --gradient_accumulation_steps 8 \
+    --gradient_accumulation_steps 1 \
     --evaluation_strategy "no" \
     --save_strategy "no" \
     --data_source_names '' \
