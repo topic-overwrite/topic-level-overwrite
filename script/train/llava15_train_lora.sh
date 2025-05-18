@@ -3,9 +3,11 @@
 echo "----------Start llava15_train----------"
 
 task_name=llava15_7b_DPO
-exp_name=llava15_tpo_self
+exp_name=llava15_tpr_lora
+
 ckpt=${1:-"checkpoint/liuhaotian--llava-v1.5-7b"}
-raw_data_path=${2:-"dataset/topic-overwrite"}
+raw_data_path=${2:-"dataset/tpr_data/generated-dpo-traindata"}
+
 data_dir=${raw_data_path}-with-logps
 
 echo "exp_name: "$exp_name

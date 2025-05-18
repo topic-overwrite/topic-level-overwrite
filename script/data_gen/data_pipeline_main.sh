@@ -2,22 +2,36 @@
 
 echo "----------Start data_pipeline----------"
 
-num_gpus=8
+num_gpus=${1:-"8"}
+ref_model_path=${2:-"checkpoint/liuhaotian--llava-v1.5-7b"}
+supp_model_path=${3:-"checkpoint/Meta-Llama-3-8B-Instruct"}
+labeler_model_path=${4:-"checkpoint/liuhaotian--llava-v1.6-34b"}
+clip_path=${5:-"checkpoint/openai--clip-vit-large-patch14-336"}
 
-generate_response_ckpt="checkpoint/liuhaotian--llava-v1.5-7b"
-split_to_claim_ckpt="checkpoint/Meta-Llama-3-8B-Instruct"
-classify_claim_ckpt="checkpoint/Meta-Llama-3-8B-Instruct"
-generate_wh_question_ckpt="checkpoint/Meta-Llama-3-8B-Instruct"
-generate_yesno_question_ckpt="checkpoint/Meta-Llama-3-8B-Instruct"
-check_claim_reward_ckpt="checkpoint/liuhaotian--llava-v1.6-34b" # checkpoint/liuhaotian--llava-v1.6-34b  checkpoint/liuhaotian--llava-v1.5-7b
-clip_ckpt="checkpoint/openai--clip-vit-large-patch14-336"
+base_dir=${6:-"dataset/tpr_data/"}
+ques_dir=${7:-"dataset/raw-question-with-image"}
+ques_file=${8:-"question.jsonl"}
+image_dir=${9:-"dataset/raw-image-dir"}
+
+# iterative hyperparameters
+start_pos="0"
+end_pos="-1"
+dpo_pair_generate_method="max_all_claim"  # 1-3 iter: max_all_claim, 4 iter: default_v1, 5 iter: max_one_claim
+
+
+generate_response_ckpt=$ref_model_path
+split_to_claim_ckpt=$supp_model_path
+classify_claim_ckpt=$supp_model_path
+generate_wh_question_ckpt=$supp_model_path
+generate_yesno_question_ckpt=$supp_model_path
+check_claim_reward_ckpt=$labeler_model_path # checkpoint/liuhaotian--llava-v1.6-34b  checkpoint/liuhaotian--llava-v1.5-7b
+clip_ckpt=$clip_path
 reorganize_response_ckpt=$generate_response_ckpt
 
-ques_dir="dataset/raw-question-with-image"
-ques_file="question.jsonl"
-image_dir="dataset/raw-image-dir"
 
-base_dir="dataset/tpo_pair21000/"
+if [[ $dir != */ ]]; then
+  dir="$dir/"
+fi
 
 generated_response_dir=$base_dir"generated-response"
 generated_response_file="generated_response.json"
@@ -35,17 +49,15 @@ merged_inf_file="merged_inf.jsonl"
 claim_reward_dir=$base_dir"generated-response"
 claim_reward_file="claim_reward_llava16.json"
 claim_relative_reward_file="claim_relative_reward_llava16.json"
-dpo_pairs_dir=$base_dir"max-all-louvain-repeat10-whv1-restructionv1-generated-response"
+dpo_pairs_dir=$base_dir"generated-dpo-pair-dir"
 dpo_pairs_file="dpo_pairs.parquet"
-ans_data_dir=$base_dir"max-all-main-postv31-repeat10-round0-traindata"
+ans_data_dir=$base_dir"generated-dpo-traindata"
 ans_logps_data_dir=$ans_data_dir"-with-logps"
+
 
 llama_inference_batch_size=8
 repeat_num="10"
-start_pos="0"
-end_pos="-1"
-dpo_pair_generate_method="max_all_claim"  # default_v1, max_one_claim, max_all_claim, all2all
-prompt_type="default" # default, all2all
+prompt_type="default" # default
 wh_type="v1" # v1, no
 cluster_type="louvain" # tarjan, louvain
 use_image_classify="yes" # yes, no

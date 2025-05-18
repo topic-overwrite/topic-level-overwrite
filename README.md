@@ -1,4 +1,5 @@
-## All links are anonymous, so some features may be restricted.
+## All links are anonymous, some functions may be restricted.
+
 
 ## Prepare <!-- omit in toc -->
 
@@ -10,66 +11,54 @@ conda activate tpr
 pip install -r requirements.txt
 ```
 
-2. Download Model Weights
 
-    [llava-7b-full](https://huggingface.co/helehan/topic-overwrite-llava-7b-full)
-   
-    [llava-7b-lora](https://huggingface.co/helehan/topic-overwrite-llava-7b-lora)
+2. Download Base Model
+
+We recommend downloading the following models:
+
+[llava-1.5-7b](https://huggingface.co/liuhaotian/llava-v1.5-7b)
+
+[llava-next-34b](https://huggingface.co/liuhaotian/llava-v1.6-34b)
+
+[llava-1.5-vision-tower-clip](https://huggingface.co/openai/clip-vit-large-patch14-336)
 
 
-## Inference
 
-We provide a simple example to show how to use TPR.
+## Data Generation 
 
+If you prefer to manually generate the dataset rather than using the existing datasets on Hugging Face. 
 
-```python
-from chat import TPOChat, img2base64
+Follow RLAIF-V work, please download [Llama-3](meta-llama/Meta-Llama-3-8B-Instruct), raw train dataset [RLAIF-V-Dataset](https://huggingface.co/datasets/openbmb/RLAIF-V-Dataset) and run the following program.
 
-chat_model = TPRChat('helehan/topic-overwrite-llava-7b-full')
-image_path="Your_Image_Path.jpg"
-msgs = "Describe in detail the people in the picture."
-inputs = {"image": image_path, "question": msgs}
-answer = chat_model.chat(inputs)
-print(answer)
-```
-
-You can also run this code to inference by executing the following script:
 
 ```bash
-python chat.py
+# Filter raw data to our format
+bash script/data_gen/filter_raw_data.sh ./your_downloaded_input_data_folder
+
+# Run data generate script, you can adjust the hyperparameters for more detailed experiments
+# if you need the complete process, you need to iteratively run the data_generation and train processes 5 times, 
+# change the 'start_pos'(line 17) and 'end_pos'(line 18) in script/data_gen/data_pipeline_main.sh each iter, generating 4000 different data each iter.
+bash script/data_gen/data_pipeline_main.sh   [gpu_num]  [llava_15_7b_path]  [llama_3_8b_path]  [llava_next_34b_path]  [clip_path]   
 ```
+
 
 ## Train
 
 **1. Prepare data**
 
-```python
-from datasets import load_dataset
-data = load_dataset("helehan/topic-overwrite")
-```
+Due to anonymization, we do not provide a dataset link here, only support the data generated from running Data Generation from above.
 
-**2. Download model from [LLaVA](https://huggingface.co/liuhaotian/llava-v1.5-7b) and vision tower [CLIP](https://huggingface.co/openai/clip-vit-large-patch14-336)**
 
-**3. Training**
+**2. Training**
 
 Run the following command to start training.
 
 ```bash
-# If you want to train lora
-bash script/train/llava15_train_lora.sh ./llava-v1.5-7b-checkpoint-path ./TPR-data-path
-
-# If you want to train full
-bash script/train/llava15_train_main.sh ./llava-v1.5-7b-checkpoint-path ./TPR-data-path
+# you can adjust the hyperparameters for your dataset/model path
+bash script/train/llava15_train_main.sh [llava_15_7b_path]  ./tpr_data/generated-dpo-traindata
 ```
 
-## Data Generation 
 
-If you prefer to manually generate the dataset rather than using the existing datasets on Hugging Face, please download [Llama](meta-llama/Meta-Llama-3-8B-Instruct) and run the following program.
-
-```bash
-# Remember to adjust the model path in the script
-bash script/data_gen/data_pipeline_main.sh
-```
 
 ## Evaluation
 

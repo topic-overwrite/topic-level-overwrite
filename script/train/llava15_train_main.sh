@@ -3,9 +3,11 @@
 echo "----------Start llava15_train----------"
 
 task_name=llava15_7b_DPO
-exp_name=llava15_tpo_main
-ckpt=checkpoint/liuhaotian--llava-v1.5-7b
-raw_data_path=dataset/tpo_pair21000/max-all-main-postv31-repeat10-round0-traindata
+exp_name=llava15_tpr_main
+
+ckpt=${1:-"checkpoint/liuhaotian--llava-v1.5-7b"}
+raw_data_path=${2:-"dataset/tpr_data/generated-dpo-traindata"}
+
 data_dir=${raw_data_path}-with-logps
 
 echo "exp_name: "$exp_name
@@ -36,7 +38,7 @@ deepspeed muffin/train/train_llava15.py \
     --save_strategy "no" \
     --data_source_names '' \
     --data_source_weights 1 \
-    --max_steps 2500 \
+    --max_steps 500 \
     --learning_rate 5e-7 \
     --weight_decay 0.01 \
     --warmup_ratio 0.05 \

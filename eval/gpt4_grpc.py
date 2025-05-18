@@ -18,7 +18,7 @@ class Chat:
     def __init__(self, model="", timeout_sec=20, openai_apikey=''):
         self.model = model
         self.timeout = timeout_sec
-        # self.client = openai.OpenAI(base_url='https://xiaoai.one', api_key=openai_apikey)
+        # self.client = openai.OpenAI(base_url='', api_key=openai_apikey)
         init_api_base_key(apikey=openai_apikey)
 
     def chat_completion(self, messages, temperature=0.2, top_p=1, max_tokens=512,
