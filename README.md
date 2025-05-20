@@ -77,6 +77,20 @@ bash script/data_gen/data_pipeline_main.sh   [gpu_num]  [llava_15_7b_path]  [lla
 
 During evaluation, object-halbench/mmhal-bench/llava-bench need to be assessed using GPT-3.5/4.
 
+First, download all `json`/`jsonl` meta file listed [here](), and place them into `eval/data/` directory. It will be like 
+
+```
+- eval
+| - data
+|   | - obj_halbench_300_with_image.jsonl
+|   | - mmhal-bench_answer_template.json
+|   | - ...
+| - change_mmhal_predict_template.py
+| - ...
+- llava 
+- ...
+```
+
 ### Object-HalBench
 
 1. Download data from [COCO](http://images.cocodataset.org/annotations/annotations_trainval2014.zip)
