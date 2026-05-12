@@ -28,6 +28,7 @@
 
 ## 🎉 News <!-- omit in toc -->
 
+- [Coming Soon] TPR-CL/TPR+ dateset and code is coming soon!
 - [2024.12.08] We open-source the code, weights ([7B](https://huggingface.co/helehan/topic-overwrite-llava-7b-full), [Lora](https://huggingface.co/helehan/topic-overwrite-llava-7b-lora)) and [data](https://huggingface.co/datasets/helehan/topic-overwrite) of TPO!
 - [2024.11.26] Our paper is accesible at [arXiv](https://arxiv.org/abs/2411.17265) now!
 
